@@ -1,0 +1,42 @@
+--- qsa-x11-free-beta3/src/qsa/qsa.pro.orig	2003-04-15 20:13:17.000000000 +0200
++++ qsa-x11-free-beta3/src/qsa/qsa.pro	2003-04-15 20:13:28.000000000 +0200
+@@ -31,8 +31,6 @@
+ # win32-msvc.net:QMAKE_LFLAGS += /INCREMENTAL:no /FIXED:no
+ 
+ # I think this belongs here
+-isEmpty(QT_SOURCE_TREE):QT_SOURCE_TREE=$(QTDIR)
+-isEmpty(QT_INSTALL_PREFIX):QT_INSTALL_PREFIX=$(QTDIR)
+ 
+ INCLUDEPATH	+= ../engine \
+ 		   $$QT_SOURCE_TREE/tools/designer/interfaces \
+--- qsa-x11-free-beta3/src/ide/ide.proorig	2003-04-15 20:26:33.000000000 +0200
++++ qsa-x11-free-beta3/src/ide/ide.pro	2003-04-15 20:29:22.000000000 +0200
+@@ -51,8 +51,7 @@
+ 
+ 
+ TARGET 		= quickide
+-VERSION  	= 1.0.0
+-DESTDIR		= $(QTDIR)/plugins/qsa
++DESTDIR		= $(QTDIR)/lib/qt/plugins-mt/qsa
+ 
+ isEmpty(QT_SOURCE_TREE):QT_SOURCE_TREE=$(QTDIR)
+ 
+--- qsa-x11-free-beta3/src/custom/custom.pro.orig	2003-04-15 20:31:05.000000000 +0200
++++ qsa-x11-free-beta3/src/custom/custom.pro	2003-04-15 20:35:38.000000000 +0200
+@@ -3,15 +3,11 @@
+ HEADERS		= quickcustom.h quickpaintwidget.h quickcolorbutton.h
+ SOURCES		= quickcustom.cpp quickpaintwidget.cpp quickcolorbutton.cpp
+ INTERFACES	=
+-DESTDIR		= $(QTDIR)/plugins/qsa
++DESTDIR		= $(QTDIR)/lib/qt/plugins-mt/qsa
+ TARGET		= quickcustom
+ 
+ isEmpty(QT_SOURCE_TREE):QT_SOURCE_TREE=$(QTDIR)
+ 
+ INCLUDEPATH     += $$QT_SOURCE_TREE/tools/designer/interfaces
+ 
+-target.path=$$plugins.path
+-isEmpty(target.path):target.path=$$QT_PREFIX/plugins
+-INSTALLS += target
+-
+ # win32-msvc.net:QMAKE_LFLAGS+=/INCREMENTAL:no /FIXED:no
