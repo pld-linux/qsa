@@ -1,9 +1,5 @@
-#
-
-%define 	_noautocompressdoc 	*.xml
-
-# No sense in translating the name of the product
 Summary:	Qt Script for Applications
+Summary(pl):	Qt Script for Applications - jêzyk skryptowy dla aplikacji Qt
 Name:		qsa
 Version:	1.1.0
 Release:	2
@@ -16,16 +12,18 @@ Patch0:		%{name}-buildsystem.patch
 Patch1:		%{name}-x11-free-c++.patch
 URL:		http://www.trolltech.com/products/qsa/index.html
 Icon:		%{name}.xpm
+BuildRequires:	qmake
 BuildRequires:	qt-devel >= 3.1.1-4
 BuildRequires:	sed >= 4.0
-BuildRequires:	qmake
 Requires:	qt >= 3.1.1-4
+Obsoletes:	qsa-examples
+Obsoletes:	qsa-lib-devel
 Obsoletes:	qsa-libs
 Obsoletes:	qt-plugin-qsa-quickcustom
 Obsoletes:	qt-plugin-qsa-quickide
-Obsoletes:	qsa-lib-devel
-Obsoletes:	qsa-examples
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define 	_noautocompressdoc 	*.xml
 
 %description
 QSA is a Qt extension that allows developers to make their C++
@@ -37,39 +35,36 @@ QSA jest rozszerzeniem Qt, które umo¿liwia programistom tworzenie
 aplikacji C++, które mog± byæ kontrolowane za pomoc± intepretowanego
 jezyka Qt Script (opartego o ECMAScript/JavaScript).
 
-
 %package doc
 Summary:	Documentation for QSA
-Summary(pl):	Dokumentacja dla.
+Summary(pl):	Dokumentacja dla QSA
 Group:		Documentation
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description doc
-Documentation for Qt Script in html format.
+Documentation for Qt Script in HTML format.
 
 %description doc -l pl
-Dokumentacja do Qt Script w formacie html.
-
+Dokumentacja do Qt Script w formacie HTML.
 
 %package devel
 Summary:	QSA - header files
 Summary(pl):	QSA - pliki nag³ówkowe
 Group:		X11/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 Requires:	qt-devel
 
 %description devel
-Header files for application usingQt Script.
+Header files for applications using Qt Script.
 
 %description devel -l pl
 Pliki nag³ówkowe dla aplikacji wykorzystuj±cych Qt Script.
-
 
 %package examples
 Summary:	QSA - examples for developers
 Summary(pl):	QSA - przyk³adowe programy dla programistów
 Group:		X11/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{version}-%{release}
 Requires:	qt-devel
 
 %description examples
@@ -82,7 +77,7 @@ Przyk³adowe sposoby wykorzystania Qt Script dla programistów.
 Summary:	Qt Script for Applications - Qt Designer plugin
 Summary(pl):	System skryptowania Qt - wtyczka do Qt Designera
 Group:		X11/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 Requires:	qt-designer-libs
 
 %description -n  qt-plugin-designer-qsa
@@ -97,6 +92,7 @@ tworzenia interfejsu graficznego.
 %setup -q -n %{name}-x11-free-%{version}
 %patch0 -p1 -b .x
 %patch1 -p1
+
 %build
 export QTDIR=%{_usr}
 export QMAKESPEC=%{_datadir}/qt/mkspecs/linux-g++
@@ -126,15 +122,15 @@ ${QTDIR}/bin/qmake "${CONF}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 install -d $RPM_BUILD_ROOT%{_datadir}/qt/mkspecs/linux-g++
 install -d $RPM_BUILD_ROOT{%{_includedir}/qsa,%{_libdir}/qt/plugins-mt/designer}
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}
 install -d $RPM_BUILD_ROOT%{_defaultdocdir}/qsa/html
 install -d $RPM_BUILD_ROOT%{_bindir}
-cp -df build/lib/* $RPM_BUILD_ROOT%{_libdir}/
 
-install build/plugins/designer/libqseditorplugin.so $RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/designer/
+cp -df build/lib/* $RPM_BUILD_ROOT%{_libdir}
+
+install build/plugins/designer/libqseditorplugin.so $RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/designer
 
 headers="qsa/qsaglobal.h \
 qsa/qsobjectfactory.h \
@@ -150,14 +146,14 @@ qsa/qsconfig.h \
 ide/qsworkbench.h"
 
 for i in $headers; do
-	install src/$i     $RPM_BUILD_ROOT%{_includedir}/qsa/
+	install src/$i     $RPM_BUILD_ROOT%{_includedir}/qsa
 done
 
-install src/qsa/qsa.prf	$RPM_BUILD_ROOT%{_datadir}/qt/mkspecs/linux-g++/
-cp -rf examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}/
+install src/qsa/qsa.prf	$RPM_BUILD_ROOT%{_datadir}/qt/mkspecs/linux-g++
+cp -rf examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}
 Z=`/bin/pwd`
 
-cd $RPM_BUILD_ROOT%{_examplesdir}/%{name}/
+cd $RPM_BUILD_ROOT%{_examplesdir}/%{name}
 rm -rf qsa.prf
 export QTDIR=%{_usr}
 export QMAKESPEC=%{_datadir}/qt/mkspecs/linux-g++
@@ -177,13 +173,13 @@ do
 sed -i -e "s,\.\./qsa,qsa," $i/$i.pro;
 cd $i
 ${QTDIR}/bin/qmake
-cd ../
+cd ..
 done
 
 cd $Z
 
-cp -rf doc/html/* $RPM_BUILD_ROOT%{_defaultdocdir}/qsa/html/
-install %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}/
+cp -rf doc/html/* $RPM_BUILD_ROOT%{_defaultdocdir}/qsa/html
+install %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -196,11 +192,13 @@ echo "#         from the Qt Assistant.                     #"
 echo "######################################################"
 
 %postun doc
+if [ "$1" = "0" ]; then
 echo "######################################################"
 echo "# Please run the 'qsa-doc -remove' command for every #"
 echo "# user who wants to have access to QSA documentation #"
 echo "#         from the Qt Assistant.                     #"
 echo "######################################################"
+fi
 
 %files
 %defattr(644,root,root,755)
@@ -213,9 +211,9 @@ echo "######################################################"
 
 %files devel
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/lib*.so
 %{_datadir}/qt/mkspecs/linux-g++/*
 %{_includedir}/qsa
-%attr(755,root,root)  %{_libdir}/lib*.so
 
 %files examples
 %defattr(644,root,root,755)
@@ -223,4 +221,4 @@ echo "######################################################"
 
 %files -n qt-plugin-designer-qsa
 %defattr(644,root,root,755)
-%attr(755,root,root)  %{_libdir}/qt/plugins-mt/designer/*
+%attr(755,root,root) %{_libdir}/qt/plugins-mt/designer/*
