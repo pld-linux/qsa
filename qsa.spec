@@ -33,7 +33,7 @@ Script (based on ECMAScript/JavaScript).
 %description -l pl
 QSA jest rozszerzeniem Qt, które umo¿liwia programistom tworzenie
 aplikacji C++, które mog± byæ kontrolowane za pomoc± intepretowanego
-jezyka Qt Script (opartego o ECMAScript/JavaScript).
+jêzyka Qt Script (opartego o ECMAScript/JavaScript).
 
 %package doc
 Summary:	Documentation for QSA
