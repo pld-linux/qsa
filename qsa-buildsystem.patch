@@ -1,12 +1,36 @@
---- qsa-x11-free-beta3/src/qsa/qsa.pro.orig	2003-04-15 20:13:17.000000000 +0200
-+++ qsa-x11-free-beta3/src/qsa/qsa.pro	2003-04-15 20:13:28.000000000 +0200
-@@ -31,8 +31,6 @@
- # win32-msvc.net:QMAKE_LFLAGS += /INCREMENTAL:no /FIXED:no
+--- qsa-x11-free-1.1.0/src/qsa/qsa.pro.x	2004-01-30 13:28:06.000000000 +0100
++++ qsa-x11-free-1.1.0/src/qsa/qsa.pro	2004-12-13 17:51:40.542572872 +0100
+@@ -4,11 +4,7 @@
+ TARGET 		= qsa
+ VERSION  	= 1.1.0
+ 
+-isEmpty(QSA_INSTALL_PREFIX) {
+-  QSA_BUILD_PREFIX=$$(QTDIR)
+-} else {
+-  QSA_BUILD_PREFIX=../..
+-}
++QSA_BUILD_PREFIX=../..
+ 
+ DESTDIR         = $$QSA_BUILD_PREFIX/lib
+ DLLDESTDIR      = $$QSA_BUILD_PREFIX/bin
+@@ -42,8 +38,6 @@
+ }
  
  # I think this belongs here
 -isEmpty(QT_SOURCE_TREE):QT_SOURCE_TREE=$(QTDIR)
 -isEmpty(QT_INSTALL_PREFIX):QT_INSTALL_PREFIX=$(QTDIR)
  
  INCLUDEPATH	+= ../engine \
- 		   $$QT_SOURCE_TREE/tools/designer/interfaces \
-
+ 		   ../../tools/designer/editor \
+--- qsa-x11-free-1.1.0/src/plugin/plugin.pro.orig	2004-01-30 13:28:06.000000000 +0100
++++ qsa-x11-free-1.1.0/src/plugin/plugin.pro	2004-12-13 18:15:52.786886896 +0100
+@@ -1,8 +1,4 @@
+-isEmpty(QSA_INSTALL_PREFIX) {
+-  QSA_BUILD_PREFIX=$$(QTDIR)
+-} else {
+-  QSA_BUILD_PREFIX=../..
+-}
++QSA_BUILD_PREFIX=../..
+ SOURCES        += qseditorplugin.cpp
+ DESTDIR	        = $$QSA_BUILD_PREFIX/plugins/designer
+ TARGET          = qseditorplugin
