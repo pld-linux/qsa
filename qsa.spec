@@ -105,6 +105,7 @@ export CXXFLAGS="%{rpmcflags}"
 CONF="CONFIG+=xml table sql network thread"
 
 cd src/qsa
+
 rm -rf qsconfig.h
 cat >> qsconfig.h << EOF
 #ifndef QS_CONFIG_H
@@ -117,6 +118,7 @@ $QTDIR/bin/qmake "$CONF"
 %{__make}
 
 cd ../plugin
+
 $QTDIR/bin/qmake "$CONF"
 %{__make}
 
@@ -155,9 +157,9 @@ $QTDIR/bin/qmake
 for i in console filter game scribblescripter scriptbutton spreadsheet textedit wrappers;
 do
 	sed -i -e "s,\.\./qsa,qsa," $i/$i.pro;
-	cd $i
-	$QTDIR/bin/qmake
-	cd ..
+#	cd $i
+#	$QTDIR/bin/qmake
+#	cd ..
 done
 
 cd $Z
@@ -186,7 +188,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/lib*.so.*
+%attr(755,root,root) %{_libdir}/lib*.so.*.*.*
 
 %files doc
 %defattr(644,root,root,755)
