@@ -13,45 +13,44 @@ Release:	0.%{_status}.2
 License:	GPL
 Group:		X11/Libraries
 Source0:	ftp://ftp.trolltech.com/qsa/%{name}-x11-free-%{_status}.tar.gz
-
 URL:		http://www.trolltech.com/products/qsa/index.html
+%{!?_with_base:BuildRequires:	qsa-lib-devel = %{version}}
 BuildRequires:	qt-devel >= 3.1.1-4
-%{!?_with_base:BuildRequires: qsa-lib-devel = %{version}}
+BuildRequires:	sed >= 4.0
 %{!?_with_base:Requires:	qsa-lib = %{version}}
 Requires:	qt >= 3.1.1-4
 # to obtain this use _with_base
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Qt Script for Applications
+Qt Script for Applications.
 
 %description -l pl
-System skryptowania Qt
-
+System skryptowania Qt.
 
 %package lib
 Summary:	QSA - libraries
 Summary(pl):	QSA - biblioteki
 Group:		X11/Libraries
-Requires(post,preun): qt-utils
+Requires(post,preun):	qt-utils
 
 %description lib
-Qt Script for Applications - libraries
+Qt Script for Applications - libraries.
 
 %description lib -l pl
-System skryptowania Qt - biblioteki
+System skryptowania Qt - biblioteki.
 
 %package lib-devel
 Summary:        QSA - headers for libraries
-Summary(pl):    QSA - nag³ówki dla bibliotek
+Summary(pl):    QSA - pliki nag³ówkowe dla bibliotek
 Group:          X11/Libraries
 Requires: 	qsa-lib = %{version}
 
 %description lib-devel
-Qt Script for Applications - headers for libraries
+Qt Script for Applications - headers for libraries.
 
 %description lib-devel -l pl
-System skryptowania Qt - nag³ówki dla bibliotek
+System skryptowania Qt - pliki nag³ówkowe dla bibliotek.
 
 %prep
 %setup -q -n %{name}-x11-free-%{_status}
@@ -109,7 +108,7 @@ grep -v DEL_FILE Makefile.2 >> Makefile
 %install
 rm -rf  $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_usr},%{_bindir},%{_libdir},%{_datadir},%{_datadir}/qt,%{_datadir}/qt/mkspecs,%{_datadir}/qt/mkspecs/linux-g++,%{_includedir},%{_libdir}/qt/plugins-mt,%{_examplesdir},%{_examplesdir}/%{name}}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir},%{_datadir}/qt/mkspecs/linux-g++,%{_includedir},%{_libdir}/qt/plugins-mt,%{_examplesdir}/%{name}}
 
 %if %{?_with_base:1}0
 install src/qsa/*.h 	$RPM_BUILD_ROOT%{_includedir}
@@ -125,7 +124,7 @@ ln -s libqsa-mt.so.1.0.0 libqsa-mt.so.1
 ln -s libqsa-mt.so.1.0.0 libqsa-mt.so.1.0
 %endif
 
-%if %{?!_with_base:1}%{?_with_base:0}
+%if 0%{!?_with_base:1}
 install src/ide/libquickide.so	$RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/
 install src/ide/libquickcustom.so $RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/
 install examples/ %{_examplesdir}/%{name}
@@ -148,21 +147,17 @@ assistant -removeContentFile %{_defaultdocdir}/%{name}-lib-%{version}/language.x
 assistant -removeContentFile %{_defaultdocdir}/%{name}-lib-%{version}/qt-script-for-applications.xml
 assistant -removeContentFile %{_defaultdocdir}/%{name}-lib-%{version}/qsa-designer.xml
 
+%if 0%{?_with_base:1}
 %files lib
-%if %{?_with_base:1}0
 %defattr(644,root,root,755)
 %doc doc/html/qsa.xml doc/html/language.xml doc/html/language.xml doc/html/qsa-designer.xml doc/html/qt-script-for-applications.xml
 %attr(755,root,root) %{_libdir}/lib*.so.*
 %endif
 
+%if 0%{?_with_base:1}
 %files lib-devel
-%if %{?_with_base:1}0
+%defattr(644,root,root,755)
 %{_datadir}/qt/mkspecs/linux-g++/*
 %{_includedir}/*
 %{_libdir}/lib*.so
 %endif
-
-##%files subpackage
-##%defattr(644,root,root,755)
-##%doc extras/*.gz
-##%{_datadir}/%{name}-ext
