@@ -1,0 +1,22 @@
+#!/bin/bash
+DO="$1"
+
+if [ -x "/usr/bin/assistant" ]; then 
+case "$DO" in
+	"-add") echo -e "Adding Qt Script for Application documentation to Qt Assistant" 
+	assistant -addContentFile /usr/share/doc/qsa/html/extensions.dcf   
+	assistant -addContentFile /usr/share/doc/qsa/html/language.dcf 
+	assistant -addContentFile /usr/share/doc/qsa/html/qsa.dcf  
+	assistant -addContentFile /usr/share/doc/qsa/html/qtscripter.dcf  
+	assistant -addContentFile /usr/share/doc/qsa/html/qt-script-for-applications.dcf ;;
+	"-remove") echo "Removing Qt Script for Application documentation from Qt Assistant:" 
+	assistant -removeContentFile /usr/share/doc/qsa/html/extensions.dcf  
+	assistant -removeContentFile /usr/share/doc/qsa/html/language.dcf 
+	assistant -removeContentFile /usr/share/doc/qsa/html/qsa.dcf  
+	assistant -removeContentFile /usr/share/doc/qsa/html/qtscripter.dcf  
+	assistant -removeContentFile /usr/share/doc/qsa/html/qt-script-for-applications.dcf ;;
+	*) echo "Please select -add or -remove" ;;
+esac
+else
+	echo "Qt Assistant not found"
+fi
