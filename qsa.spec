@@ -15,6 +15,7 @@ Source1:	%{name}-doc
 Patch0:		%{name}-buildsystem.patch
 Patch1:		%{name}-x11-free-c++.patch
 URL:		http://www.trolltech.com/products/qsa/index.html
+Icon:		%{name}.xpm
 BuildRequires:	qt-devel >= 3.1.1-4
 BuildRequires:	sed >= 4.0
 BuildRequires:	qmake
