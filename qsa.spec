@@ -15,6 +15,7 @@ Release:	0.%{_status}.1
 License:	GPL
 Group:		X11/Libraries
 Source0:	ftp://ftp.trolltech.com/qsa/%{name}-x11-free-%{_status}.tar.gz
+# Source0-md5:	2264ccc24deff8333f553895138b227b
 Patch0:		%{name}-buildsystem.patch
 URL:		http://www.trolltech.com/products/qsa/index.html
 %{!?_with_base:BuildRequires:	qsa-lib-devel = %{version}}
