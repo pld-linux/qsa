@@ -1,0 +1,36 @@
+--- qsa-x11-free-1.1.0/src/engine/qsclass.cpp.orig	2004-01-30 13:28:06.000000000 +0100
++++ qsa-x11-free-1.1.0/src/engine/qsclass.cpp	2004-05-26 16:25:54.884767896 +0200
+@@ -1542,7 +1542,8 @@
+     while( it!=chain.end() ) {
+ 	qs_dumpobject( *it );
+ 	if( (*it).objectType() == env->typeClass() ) {
+-	    qs_dumptype( QSList( *it ) );
++	    const QSList list( *it );
++	    qs_dumptype( list );
+ 	}
+ 	it++;
+     }
+--- qsa-x11-free-1.1.0/src/engine/qsnodes.cpp.orig	2004-01-30 13:28:06.000000000 +0100
++++ qsa-x11-free-1.1.0/src/engine/qsnodes.cpp	2004-05-26 16:28:58.011928336 +0200
+@@ -1768,7 +1768,8 @@
+ {
+     if ( type ) {
+ 	QSObject cl = type->rhs(env);
+-	return QSTypeClass::classValue(&cl)->construct( QSList() );
++	const QSList empty;
++	return QSTypeClass::classValue(&cl)->construct( empty );
+     }
+     return env->createUndefined();  	// unused, therefore 0L is okay
+ }
+--- qsa-x11-free-1.1.0/src/engine/qsglobal_object.cpp.orig	2004-01-30 13:28:06.000000000 +0100
++++ qsa-x11-free-1.1.0/src/engine/qsglobal_object.cpp	2004-05-26 16:38:24.390825656 +0200
+@@ -111,7 +111,8 @@
+ 				    data.errorLines().first() );
+ 	}
+ 
+-	env->pushScope( cl->construct( QSList() ) );
++	const QSList empty;
++	env->pushScope( cl->construct( empty ) );
+ 	// ### delete tmp scope class
+ 
+ 	QSObject res = eimp->progNode()->execute( env );
