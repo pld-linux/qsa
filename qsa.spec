@@ -1,18 +1,21 @@
 #
+# DONT BUILD THIS AS ROOT! JUST DONT! IF YOU DO, DONT BLAME ME.
+#
 # _with_base		trolltech is magic (this generates qsa only
 #			after this you can rebuild it)
 #
 # Trolltech sucks
 %define 	_noautocompressdoc 	*.xml
-%define 	_status		beta2
+%define 	_status		beta3
 Summary:	Qt Script for Applications
 Summary(pl): 	System skryptowania Qt
 Name:		qsa
 Version:	1.0
-Release:	0.%{_status}.2
+Release:	0.%{_status}.1
 License:	GPL
 Group:		X11/Libraries
 Source0:	ftp://ftp.trolltech.com/qsa/%{name}-x11-free-%{_status}.tar.gz
+Patch0:		%{name}-buildsystem.patch
 URL:		http://www.trolltech.com/products/qsa/index.html
 %{!?_with_base:BuildRequires:	qsa-lib-devel = %{version}}
 BuildRequires:	qt-devel >= 3.1.1-4
@@ -28,119 +31,123 @@ Qt Script for Applications.
 %description -l pl
 System skryptowania Qt.
 
-%package lib
+%package libs
 Summary:	QSA - libraries
 Summary(pl):	QSA - biblioteki
 Group:		X11/Libraries
 Requires(post,preun):	qt-utils
+Requires:       qt >= 3.2-0.030405.4
 
-%description lib
+%description libs
 Qt Script for Applications - libraries.
 
-%description lib -l pl
+%description libs -l pl
 System skryptowania Qt - biblioteki.
 
-%package lib-devel
+%package devel
 Summary:        QSA - headers for libraries
 Summary(pl):    QSA - pliki nag³ówkowe dla bibliotek
 Group:          X11/Libraries
-Requires: 	qsa-lib = %{version}
+Requires: 	qsa-libs = %{version}
+Requires:       qt-devel >= 3.2-0.030405.4
 
-%description lib-devel
+%description devel
 Qt Script for Applications - headers for libraries.
 
-%description lib-devel -l pl
+%description devel -l pl
 System skryptowania Qt - pliki nag³ówkowe dla bibliotek.
+
+%package examples
+Summary:        QSA - examples for developers
+Summary(pl):    QSA - przyk³adowe programy dla programistów
+Group:          X11/Libraries
+
+%description examples
+Qt Script for Applications - examples for developers.
+
+%description examples -l pl
+System skryptowania Qt - przyk³adowe programy dla programistów.
+
+%package -n qt-plugin-qsa-quickide
+Summary:        QSA - no idea what this is.
+Group:          X11/Libraries
+Requires:       qsa-libs = %{version}
+
+%description -n qt-plugin-qsa-quickide
+Qt Script for Applications - ?.
+
+%package -n qt-plugin-qsa-quickcustom
+Summary:        QSA - no idea what this is.
+Group:          X11/Libraries
+Requires:       qsa-libs = %{version}
+
+%description -n qt-plugin-qsa-quickcustom
+Qt Script for Applications - ?.
 
 %prep
 %setup -q -n %{name}-x11-free-%{_status}
+%patch0 -p1
 
 %build
 # Fuck trolltechs build system ideas
 export QTDIR=%{_usr}
 export QMAKESPEC=%{_datadir}/qt/mkspecs/linux-g++/
 find . -name Makefile -exec rm {} \;
-# do only a threaded build (making an st version 
-# would make compiling qsa apps much more complicated
-
-#cd examples; qmake "${CONF}")
-#cd src/custom; qmake "${CONF}"
-#cd src/ide; qmake "${CONF}")
 
 %if %{?_with_base:1}0
+export CFLAGS="%{rpmcflags}"
+export CXXFLAGS="%{rpmcflags}"
 CONF="CONFIG+=thread"
 cd src/qsa
 qmake "${CONF}" qsa.pro
-sed -i -e "s,all: Makefile,all:,g" Makefile
-grep -v MOVE Makefile >> Makefile.1
-grep -v DEL_FILE Makefile.1 >> Makefile
-%{__make}
-mv -f libqsa.so.1.0.0 libqsa-mt.so.1.0.0
-rm -rf libqsa.so*
-
-CONF=""
-qmake "${CONF}" qsa.pro
-%{__make} clean
-sed -i -e "s,all: Makefile,all:,g" Makefile
-grep -v MOVE Makefile >> Makefile.1
-grep -v DEL_FILE Makefile.1 >> Makefile
 %{__make}
 %endif
 
 %if %{?!_with_base:1}%{?_with_base:0}
-cd examples; qmake "${CONF}"
-cd src/custom; qmake "${CONF}"
+CONF="CONFIG+=thread"
 cd src/ide; qmake "${CONF}"
-sed -i -e "s,all: Makefile,all:,g" Makefile
-grep -v MOVE Makefile >> Makefile.1
-cat Makefile.1|grep -v "`cat Makefile.1|grep test|grep QTD`" >> Makefile.2
-grep -v DEL_FILE Makefile.2 >> Makefile
 %{__make}
 
 cd ../custom
-sed -i -e "s,all: Makefile,all:,g" Makefile
-grep -v MOVE Makefile >> Makefile.1
-cat Makefile.1|grep -v "`cat Makefile.1|grep test|grep QTD`" >> Makefile.2
-grep -v DEL_FILE Makefile.2 >> Makefile
+qmake "${CONF}"
 %{__make}
+
+cd ../../examples
+qmake "${CONF}"
 %endif 
 
 %install
 rm -rf  $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir},%{_datadir}/qt/mkspecs/linux-g++,%{_includedir},%{_libdir}/qt/plugins-mt,%{_examplesdir}/%{name}}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir},%{_datadir}/qt/mkspecs/linux-g++,%{_includedir},%{_libdir}/qt/plugins-mt,%{_libdir}/qt/plugins-mt/qsa,%{_examplesdir}/%{name}}
 
 %if %{?_with_base:1}0
 install src/qsa/*.h 	$RPM_BUILD_ROOT%{_includedir}
 install src/qsa/qsa.prf	$RPM_BUILD_ROOT%{_datadir}/qt/mkspecs/linux-g++/
 install src/qsa/libqsa.so.1.0.0	$RPM_BUILD_ROOT%{_libdir}
-install src/qsa/libqsa-mt.so.1.0.0 $RPM_BUILD_ROOT%{_libdir}
 cd $RPM_BUILD_ROOT%{_libdir}
 ln -s libqsa.so.1.0.0 libqsa.so 
 ln -s libqsa.so.1.0.0 libqsa.so.1 
 ln -s libqsa.so.1.0.0 libqsa.so.1.0
-ln -s libqsa-mt.so.1.0.0 libqsa-mt.so
-ln -s libqsa-mt.so.1.0.0 libqsa-mt.so.1
-ln -s libqsa-mt.so.1.0.0 libqsa-mt.so.1.0
 %endif
 
 %if 0%{!?_with_base:1}
-install src/ide/libquickide.so	$RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/
-install src/ide/libquickcustom.so $RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/
-install examples/ %{_examplesdir}/%{name}
+install src/ide/libquickide.so	$RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/qsa/
+install src/custom/libquickcustom.so $RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/qsa/
+cp -rf examples/ $RPM_BUILD_ROOT%{_examplesdir}/%{name}
 %endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post lib
+%post libs
 assistant -addContentFile %{_defaultdocdir}/%{name}-lib-%{version}/qsa.xml
 assistant -addContentFile %{_defaultdocdir}/%{name}-lib-%{version}/language.xml
 assistant -addContentFile %{_defaultdocdir}/%{name}-lib-%{version}/language.xml
 assistant -addContentFile %{_defaultdocdir}/%{name}-lib-%{version}/qt-script-for-applications.xml
 assistant -addContentFile %{_defaultdocdir}/%{name}-lib-%{version}/qsa-designer.xml
 
-%preun lib
+%preun libs
 assistant -removeContentFile %{_defaultdocdir}/%{name}-lib-%{version}/qsa.xml
 assistant -removeContentFile %{_defaultdocdir}/%{name}-lib-%{version}/language.xml
 assistant -removeContentFile %{_defaultdocdir}/%{name}-lib-%{version}/language.xml
@@ -148,16 +155,30 @@ assistant -removeContentFile %{_defaultdocdir}/%{name}-lib-%{version}/qt-script-
 assistant -removeContentFile %{_defaultdocdir}/%{name}-lib-%{version}/qsa-designer.xml
 
 %if 0%{?_with_base:1}
-%files lib
+%files libs
 %defattr(644,root,root,755)
 %doc doc/html/qsa.xml doc/html/language.xml doc/html/language.xml doc/html/qsa-designer.xml doc/html/qt-script-for-applications.xml
 %attr(755,root,root) %{_libdir}/lib*.so.*
 %endif
 
 %if 0%{?_with_base:1}
-%files lib-devel
+%files devel
 %defattr(644,root,root,755)
 %{_datadir}/qt/mkspecs/linux-g++/*
 %{_includedir}/*
 %{_libdir}/lib*.so
+%endif
+
+%if 0%{!?_with_base:1}
+%files -n qt-plugin-qsa-quickide
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/qt/plugins-mt/qsa/libquickide.so
+
+%files -n qt-plugin-qsa-quickcustom
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/qt/plugins-mt/qsa/libquickcustom.so
+
+%files examples
+%defattr(644,root,root,755)
+%{_examplesdir}/%{name}
 %endif
