@@ -193,11 +193,11 @@ echo "######################################################"
 
 %postun doc
 if [ "$1" = "0" ]; then
-echo "######################################################"
-echo "# Please run the 'qsa-doc -remove' command for every #"
-echo "# user who wants to have access to QSA documentation #"
-echo "#         from the Qt Assistant.                     #"
-echo "######################################################"
+echo "###########################################################"
+echo "# Please run the 'qsa-doc -remove' command for every user #"
+echo "# for whom you ran 'qsa-doc -add' earlier in  order to    #"
+echo "#    remove qsa documentation from the Qt Assistant.      #"
+echo "##########################################################"
 fi
 
 %files
