@@ -90,11 +90,11 @@ tworzenia interfejsu graficznego.
 
 %prep
 %setup -q -n %{name}-x11-free-%{version}
-%patch0 -p1 -b .x
+%patch0 -p1
 %patch1 -p1
 
 %build
-export QTDIR=%{_usr}
+export QTDIR=%{_prefix}
 export QMAKESPEC=%{_datadir}/qt/mkspecs/linux-g++
 export LD_LIBRARY_PATH="`/bin/pwd`/src/qsa:$LD_LIBRARY_PATH"
 
@@ -111,13 +111,13 @@ cat >> qsconfig.h << EOF
 #define QS_CONFIG_H
 /* Trolltech sucks */
 #endif
-
 EOF
-${QTDIR}/bin/qmake "${CONF}"
+
+$QTDIR/bin/qmake "$CONF"
 %{__make}
 
 cd ../plugin
-${QTDIR}/bin/qmake "${CONF}"
+$QTDIR/bin/qmake "$CONF"
 %{__make}
 
 %install
@@ -128,22 +128,14 @@ install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}
 install -d $RPM_BUILD_ROOT%{_defaultdocdir}/qsa/html
 install -d $RPM_BUILD_ROOT%{_bindir}
 
-cp -df build/lib/* $RPM_BUILD_ROOT%{_libdir}
+cp -df lib/* $RPM_BUILD_ROOT%{_libdir}
 
-install build/plugins/designer/libqseditorplugin.so $RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/designer
+install plugins/designer/libqseditorplugin.so $RPM_BUILD_ROOT%{_libdir}/qt/plugins-mt/designer
 
-headers="qsa/qsaglobal.h \
-qsa/qsobjectfactory.h \
-qsa/qswrapperfactory.h \
-qsa/qseditor.h \
-qsa/qsproject.h \
-qsa/qsinterpreter.h \
-qsa/qsargument.h \
-qsa/qsinputdialogfactory.h \
-qsa/qsutilfactory.h \
-qsa/qsscript.h \
-qsa/qsconfig.h \
-ide/qsworkbench.h"
+headers="qsa/qsaglobal.h qsa/qsobjectfactory.h qsa/qswrapperfactory.h \
+	qsa/qseditor.h qsa/qsproject.h qsa/qsinterpreter.h qsa/qsargument.h \
+	qsa/qsinputdialogfactory.h qsa/qsutilfactory.h qsa/qsscript.h \
+	qsa/qsconfig.h ide/qsworkbench.h"
 
 for i in $headers; do
 	install src/$i $RPM_BUILD_ROOT%{_includedir}/qsa
@@ -151,29 +143,21 @@ done
 
 install src/qsa/qsa.prf	$RPM_BUILD_ROOT%{_datadir}/qt/mkspecs/linux-g++
 cp -rf examples/* $RPM_BUILD_ROOT%{_examplesdir}/%{name}
-Z=`/bin/pwd`
+
+Z=$PWD
 
 cd $RPM_BUILD_ROOT%{_examplesdir}/%{name}
 rm -rf qsa.prf
 export QTDIR=%{_usr}
 export QMAKESPEC=%{_datadir}/qt/mkspecs/linux-g++
-${QTDIR}/bin/qmake
+$QTDIR/bin/qmake
 
-exmpl="console \
-filter \
-game \
-scribblescripter \
-scriptbutton \
-spreadsheet \
-textedit \
-wrappers"
-
-for i in $exmpl;
+for i in console filter game scribblescripter scriptbutton spreadsheet textedit wrappers;
 do
-sed -i -e "s,\.\./qsa,qsa," $i/$i.pro;
-cd $i
-${QTDIR}/bin/qmake
-cd ..
+	sed -i -e "s,\.\./qsa,qsa," $i/$i.pro;
+	cd $i
+	$QTDIR/bin/qmake
+	cd ..
 done
 
 cd $Z
