@@ -1,15 +1,14 @@
 Summary:	Qt Script for Applications
 Summary(pl):	Qt Script for Applications - jêzyk skryptowy dla aplikacji Qt
 Name:		qsa
-Version:	1.1.0
-Release:	2
-License:	GPL
+Version:	1.1.2
+Release:	1
+License:	GPL v2
 Group:		X11/Libraries
 Source0:	ftp://ftp.trolltech.com/qsa/source/%{name}-x11-free-%{version}.tar.gz
-# Source0-md5:	7394ebb3cf1c2576d61f8eaff9773b25
+# Source0-md5:	812dbc9c6210ddd46310d90d27c61981
 Source1:	%{name}-doc
 Patch0:		%{name}-buildsystem.patch
-Patch1:		%{name}-x11-free-c++.patch
 URL:		http://www.trolltech.com/products/qsa/index.html
 Icon:		qsa.xpm
 BuildRequires:	qmake
@@ -91,7 +90,6 @@ tworzenia interfejsu graficznego.
 %prep
 %setup -q -n %{name}-x11-free-%{version}
 %patch0 -p1
-%patch1 -p1
 
 %build
 export QTDIR=%{_prefix}
