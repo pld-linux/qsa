@@ -8,7 +8,7 @@
 %define 	_noautocompressdoc 	*.xml
 %define 	_status		beta3
 Summary:	Qt Script for Applications
-Summary(pl): 	System skryptowania Qt
+Summary(pl):	System skryptowania Qt
 Name:		qsa
 Version:	1.0
 Release:	0.%{_status}.1
@@ -37,7 +37,7 @@ Summary:	QSA - libraries
 Summary(pl):	QSA - biblioteki
 Group:		X11/Libraries
 Requires(post,preun):	qt-utils
-Requires:       qt >= 3.2-0.030405.4
+Requires:	qt >= 3.2-0.030405.4
 
 %description libs
 Qt Script for Applications - libraries.
@@ -46,11 +46,11 @@ Qt Script for Applications - libraries.
 System skryptowania Qt - biblioteki.
 
 %package devel
-Summary:        QSA - headers for libraries
-Summary(pl):    QSA - pliki nag³ówkowe dla bibliotek
-Group:          X11/Libraries
-Requires: 	qsa-libs = %{version}
-Requires:       qt-devel >= 3.2-0.030405.4
+Summary:	QSA - headers for libraries
+Summary(pl):	QSA - pliki nag³ówkowe dla bibliotek
+Group:		X11/Libraries
+Requires:	qsa-libs = %{version}
+Requires:	qt-devel >= 3.2-0.030405.4
 
 %description devel
 Qt Script for Applications - headers for libraries.
@@ -59,9 +59,9 @@ Qt Script for Applications - headers for libraries.
 System skryptowania Qt - pliki nag³ówkowe dla bibliotek.
 
 %package examples
-Summary:        QSA - examples for developers
-Summary(pl):    QSA - przyk³adowe programy dla programistów
-Group:          X11/Libraries
+Summary:	QSA - examples for developers
+Summary(pl):	QSA - przyk³adowe programy dla programistów
+Group:		X11/Libraries
 
 %description examples
 Qt Script for Applications - examples for developers.
@@ -70,17 +70,17 @@ Qt Script for Applications - examples for developers.
 System skryptowania Qt - przyk³adowe programy dla programistów.
 
 %package -n qt-plugin-qsa-quickide
-Summary:        QSA - no idea what this is.
-Group:          X11/Libraries
-Requires:       qsa-libs = %{version}
+Summary:	QSA - no idea what this is.
+Group:		X11/Libraries
+Requires:	qsa-libs = %{version}
 
 %description -n qt-plugin-qsa-quickide
 Qt Script for Applications - ?.
 
 %package -n qt-plugin-qsa-quickcustom
-Summary:        QSA - no idea what this is.
-Group:          X11/Libraries
-Requires:       qsa-libs = %{version}
+Summary:	QSA - no idea what this is.
+Group:		X11/Libraries
+Requires:	qsa-libs = %{version}
 
 %description -n qt-plugin-qsa-quickcustom
 Qt Script for Applications - ?.
@@ -115,7 +115,7 @@ qmake "${CONF}"
 
 cd ../../examples
 qmake "${CONF}"
-%endif 
+%endif
 
 %install
 rm -rf  $RPM_BUILD_ROOT
@@ -127,8 +127,8 @@ install src/qsa/*.h 	$RPM_BUILD_ROOT%{_includedir}
 install src/qsa/qsa.prf	$RPM_BUILD_ROOT%{_datadir}/qt/mkspecs/linux-g++/
 install src/qsa/libqsa.so.1.0.0	$RPM_BUILD_ROOT%{_libdir}
 cd $RPM_BUILD_ROOT%{_libdir}
-ln -s libqsa.so.1.0.0 libqsa.so 
-ln -s libqsa.so.1.0.0 libqsa.so.1 
+ln -s libqsa.so.1.0.0 libqsa.so
+ln -s libqsa.so.1.0.0 libqsa.so.1
 ln -s libqsa.so.1.0.0 libqsa.so.1.0
 %endif
 
