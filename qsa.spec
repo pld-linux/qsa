@@ -80,11 +80,11 @@ Group:		X11/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	qt-designer-libs
 
-%description -n  qt-plugin-designer-qsa
+%description -n qt-plugin-designer-qsa
 A Qt Designer plugin allowing the use of Qt Script while developing
 GUI.
 
-%description -n  qt-plugin-designer-qsa -l pl
+%description -n qt-plugin-designer-qsa -l pl
 Wtyczka do Qt Designer umo¿liwiaj±ca wykorzystywanie Qt Script podczas
 tworzenia interfejsu graficznego.
 
@@ -146,7 +146,7 @@ qsa/qsconfig.h \
 ide/qsworkbench.h"
 
 for i in $headers; do
-	install src/$i     $RPM_BUILD_ROOT%{_includedir}/qsa
+	install src/$i $RPM_BUILD_ROOT%{_includedir}/qsa
 done
 
 install src/qsa/qsa.prf	$RPM_BUILD_ROOT%{_datadir}/qt/mkspecs/linux-g++
