@@ -191,6 +191,8 @@ fi
 %files doc
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/qsa-doc
+%dir %{_defaultdocdir}/qsa
+%dir %{_defaultdocdir}/qsa/html
 %{_defaultdocdir}/qsa/html/*
 
 %files devel
