@@ -10,7 +10,6 @@ Source0:	ftp://ftp.trolltech.com/qsa/source/%{name}-x11-free-%{version}.tar.gz
 Source1:	%{name}-doc
 Patch0:		%{name}-buildsystem.patch
 URL:		http://www.trolltech.com/products/qsa/index.html
-Icon:		qsa.xpm
 BuildRequires:	qmake
 BuildRequires:	qt-devel >= 3.1.1-4
 BuildRequires:	sed >= 4.0
