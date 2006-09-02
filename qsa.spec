@@ -124,7 +124,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_datadir}/qt/mkspecs/linux-g++
 install -d $RPM_BUILD_ROOT{%{_includedir}/qsa,%{_libdir}/qt/plugins-mt/designer}
 install -d $RPM_BUILD_ROOT%{_examplesdir}/%{name}
-install -d $RPM_BUILD_ROOT%{_defaultdocdir}/qsa/html
+install -d $RPM_BUILD_ROOT%{_docdir}/qsa/html
 install -d $RPM_BUILD_ROOT%{_bindir}
 
 cp -df lib/* $RPM_BUILD_ROOT%{_libdir}
@@ -161,7 +161,7 @@ done
 
 cd $Z
 
-cp -rf doc/html/* $RPM_BUILD_ROOT%{_defaultdocdir}/qsa/html
+cp -rf doc/html/* $RPM_BUILD_ROOT%{_docdir}/qsa/html
 install %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}
 
 %clean
@@ -190,9 +190,9 @@ fi
 %files doc
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/qsa-doc
-%dir %{_defaultdocdir}/qsa
-%dir %{_defaultdocdir}/qsa/html
-%{_defaultdocdir}/qsa/html/*
+%dir %{_docdir}/qsa
+%dir %{_docdir}/qsa/html
+%{_docdir}/qsa/html/*
 
 %files devel
 %defattr(644,root,root,755)
