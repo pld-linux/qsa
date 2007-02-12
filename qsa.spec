@@ -1,5 +1,5 @@
 Summary:	Qt Script for Applications
-Summary(pl):	Qt Script for Applications - jêzyk skryptowy dla aplikacji Qt
+Summary(pl.UTF-8):   Qt Script for Applications - jÄ™zyk skryptowy dla aplikacji Qt
 Name:		qsa
 Version:	1.1.3
 Release:	1
@@ -28,26 +28,26 @@ QSA is a Qt extension that allows developers to make their C++
 applications scriptable using an interpreted scripting language, Qt
 Script (based on ECMAScript/JavaScript).
 
-%description -l pl
-QSA jest rozszerzeniem Qt, które umo¿liwia programistom tworzenie
-aplikacji C++, które mog± byæ kontrolowane za pomoc± intepretowanego
-jêzyka Qt Script (opartego o ECMAScript/JavaScript).
+%description -l pl.UTF-8
+QSA jest rozszerzeniem Qt, ktÃ³re umoÅ¼liwia programistom tworzenie
+aplikacji C++, ktÃ³re mogÄ… byÄ‡ kontrolowane za pomocÄ… intepretowanego
+jÄ™zyka Qt Script (opartego o ECMAScript/JavaScript).
 
 %package doc
 Summary:	Documentation for QSA
-Summary(pl):	Dokumentacja dla QSA
+Summary(pl.UTF-8):   Dokumentacja dla QSA
 Group:		Documentation
 Requires:	%{name} = %{version}-%{release}
 
 %description doc
 Documentation for Qt Script in HTML format.
 
-%description doc -l pl
+%description doc -l pl.UTF-8
 Dokumentacja do Qt Script w formacie HTML.
 
 %package devel
 Summary:	QSA - header files
-Summary(pl):	QSA - pliki nag³ówkowe
+Summary(pl.UTF-8):   QSA - pliki nagÅ‚Ã³wkowe
 Group:		X11/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	qt-devel
@@ -55,12 +55,12 @@ Requires:	qt-devel
 %description devel
 Header files for applications using Qt Script.
 
-%description devel -l pl
-Pliki nag³ówkowe dla aplikacji wykorzystuj±cych Qt Script.
+%description devel -l pl.UTF-8
+Pliki nagÅ‚Ã³wkowe dla aplikacji wykorzystujÄ…cych Qt Script.
 
 %package examples
 Summary:	QSA - examples for developers
-Summary(pl):	QSA - przyk³adowe programy dla programistów
+Summary(pl.UTF-8):   QSA - przykÅ‚adowe programy dla programistÃ³w
 Group:		X11/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	qt-devel
@@ -68,12 +68,12 @@ Requires:	qt-devel
 %description examples
 Examples of Qt Script usage for developers.
 
-%description examples -l pl
-Przyk³adowe sposoby wykorzystania Qt Script dla programistów.
+%description examples -l pl.UTF-8
+PrzykÅ‚adowe sposoby wykorzystania Qt Script dla programistÃ³w.
 
 %package -n qt-plugin-designer-qsa
 Summary:	Qt Script for Applications - Qt Designer plugin
-Summary(pl):	System skryptowania Qt - wtyczka do Qt Designera
+Summary(pl.UTF-8):   System skryptowania Qt - wtyczka do Qt Designera
 Group:		X11/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	qt-designer-libs
@@ -82,8 +82,8 @@ Requires:	qt-designer-libs
 A Qt Designer plugin allowing the use of Qt Script while developing
 GUI.
 
-%description -n qt-plugin-designer-qsa -l pl
-Wtyczka do Qt Designer umo¿liwiaj±ca wykorzystywanie Qt Script podczas
+%description -n qt-plugin-designer-qsa -l pl.UTF-8
+Wtyczka do Qt Designer umoÅ¼liwiajÄ…ca wykorzystywanie Qt Script podczas
 tworzenia interfejsu graficznego.
 
 %prep
