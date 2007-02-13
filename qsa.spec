@@ -1,5 +1,5 @@
 Summary:	Qt Script for Applications
-Summary(pl.UTF-8):   Qt Script for Applications - język skryptowy dla aplikacji Qt
+Summary(pl.UTF-8):	Qt Script for Applications - język skryptowy dla aplikacji Qt
 Name:		qsa
 Version:	1.1.3
 Release:	1
@@ -35,7 +35,7 @@ języka Qt Script (opartego o ECMAScript/JavaScript).
 
 %package doc
 Summary:	Documentation for QSA
-Summary(pl.UTF-8):   Dokumentacja dla QSA
+Summary(pl.UTF-8):	Dokumentacja dla QSA
 Group:		Documentation
 Requires:	%{name} = %{version}-%{release}
 
@@ -47,7 +47,7 @@ Dokumentacja do Qt Script w formacie HTML.
 
 %package devel
 Summary:	QSA - header files
-Summary(pl.UTF-8):   QSA - pliki nagłówkowe
+Summary(pl.UTF-8):	QSA - pliki nagłówkowe
 Group:		X11/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	qt-devel
@@ -60,7 +60,7 @@ Pliki nagłówkowe dla aplikacji wykorzystujących Qt Script.
 
 %package examples
 Summary:	QSA - examples for developers
-Summary(pl.UTF-8):   QSA - przykładowe programy dla programistów
+Summary(pl.UTF-8):	QSA - przykładowe programy dla programistów
 Group:		X11/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 Requires:	qt-devel
@@ -73,7 +73,7 @@ Przykładowe sposoby wykorzystania Qt Script dla programistów.
 
 %package -n qt-plugin-designer-qsa
 Summary:	Qt Script for Applications - Qt Designer plugin
-Summary(pl.UTF-8):   System skryptowania Qt - wtyczka do Qt Designera
+Summary(pl.UTF-8):	System skryptowania Qt - wtyczka do Qt Designera
 Group:		X11/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	qt-designer-libs
