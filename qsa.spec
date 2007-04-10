@@ -11,7 +11,7 @@ Source1:	%{name}-doc
 Patch0:		%{name}-buildsystem.patch
 URL:		http://www.trolltech.com/products/qsa/index.html
 BuildRequires:	qmake
-BuildRequires:	qt-devel >= 3.1.1-4
+BuildRequires:	qt-devel >= 6:3.1.1-4
 BuildRequires:	sed >= 4.0
 Requires:	qt >= 3.1.1-4
 Obsoletes:	qsa-examples
