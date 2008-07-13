@@ -2,7 +2,7 @@ Summary:	Qt Script for Applications
 Summary(pl.UTF-8):	Qt Script for Applications - język skryptowy dla aplikacji Qt
 Name:		qsa
 Version:	1.1.3
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		X11/Libraries
 Source0:	ftp://ftp.trolltech.com/qsa/source/%{name}-x11-free-%{version}.tar.gz
